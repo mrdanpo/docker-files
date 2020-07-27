@@ -1,0 +1,16 @@
+---
+  version: "2.1"
+  services:
+    mariadb:
+      image: linuxserver/mariadb
+      container_name: mariadb
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - MYSQL_ROOT_PASSWORD=changeme
+        - TZ=Europe/London
+      volumes:
+        - path_to_data:/config
+      ports:
+        - 3306:3306
+      restart: unless-stopped
