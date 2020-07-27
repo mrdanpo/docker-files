@@ -8,11 +8,14 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /path/to/appdata:/config
-      - /path/to/data/data:/data
-    ports:
-      - 443:443
+      - ./nextcloud/appdata:/config
+      - ./nextcloud/data:/data
+    expose:
+      - 80
+      - 443
     restart: unless-stopped
+    depends_on:
+      - mariadb
   mariadb:
     image: linuxserver/mariadb
     container_name: mariadb
@@ -22,7 +25,35 @@ services:
       - MYSQL_ROOT_PASSWORD=changeme
       - TZ=Europe/London
     volumes:
-      - path_to_data:/config
+      - ./mariadb/config:/config
+    expose:
+      - 3306
+    restart: unless-stopped
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - mariadb
+      - nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - URL=your.domain
+      - SUBDOMAINS=nextcloud
+      - VALIDATION=http
+#      - DNSPLUGIN=cloudflare #optional
+#      - PROPAGATION= #optional
+#      - DUCKDNSTOKEN= #optional
+#      - EMAIL= #optional
+      - ONLY_SUBDOMAINS=true
+#      - EXTRA_DOMAINS= #optional
+#      - STAGING=false #optional
+    volumes:
+      - ./letsencrypt/config:/config
     ports:
-      - 3306:3306
+      - 443:443
+      - 80:80
     restart: unless-stopped
