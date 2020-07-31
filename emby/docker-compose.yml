@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+  emby:
+    image: linuxserver/emby
+    container_name: emby
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /path/to/config:/config
+      - /path/to/media:/data
+    ports:
+      - 8096:8096
+    restart: unless-stopped
