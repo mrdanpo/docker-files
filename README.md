@@ -1,3 +1,3 @@
 # docker-files
 
-A collection of docker compose i have used. 
+A collection of docker compose files I have used. 
