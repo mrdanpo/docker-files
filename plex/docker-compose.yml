@@ -1,16 +1,14 @@
-version: "2.1"
+version: '2'
 services:
   plex:
-    image: linuxserver/plex
     container_name: plex
-    network_mode: host
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - VERSION=docker
-      - UMASK_SET=022 #optional
-#      - PLEX_CLAIM=
-    volumes:
-      - /path/to/config:/config
-      - /path/to/media:/plex/media
+    image: plexinc/pms-docker
     restart: unless-stopped
+    environment:
+      - TZ=Europe/London
+#      - PLEX_CLAIM=
+    network_mode: host
+    volumes:
+      - /mnt/storage/plex/config:/config
+      - /mnt/storage/plex/transcode:/transcode
+      - /mnt/storage/media:/data
