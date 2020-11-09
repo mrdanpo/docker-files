@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+  foldingathome:
+    image: ghcr.io/linuxserver/foldingathome
+    container_name: foldingathome
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /mnt/storage/foldingathome/config:/config
+    ports:
+      - 7396:7396
+      - 36330:36330 #optional
+    restart: unless-stopped
