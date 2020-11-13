@@ -15,7 +15,7 @@ setInterval(async function() {
     var hostnames = process.env.HOSTNAMES.split(',');
   
     // foreach record match subdomins from env and delete
-    for(var record in records){
+    for(var record of records){
       if (hostnames.includes(record.hostname)){
         await deleteRecord(record.id, record.hostname);
       }
