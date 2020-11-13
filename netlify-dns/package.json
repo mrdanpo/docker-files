@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.1",
-    "node-stopwatch": "0.0.1",
     "public-ip": "^4.0.2"
   }
 }
