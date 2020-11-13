@@ -15,14 +15,14 @@ setInterval(async function() {
     var hostnames = process.env.HOSTNAMES.split(',');
   
     // foreach record match subdomins from env and delete
-    for (var record in records){
+    for(var record in records){
       if (hostnames.includes(record.hostname)){
         await deleteRecord(record.id, record.hostname);
       }
     }
   
     // foreach subdomain create new record
-    for(var hostname in hostnames){
+    for(var hostname of hostnames){
       await createRecord(hostname);
     }
 
@@ -60,7 +60,6 @@ function getRecords(){
 function createRecord(hostname){
   return getIp()
   .then(ip => {
-    console.log(`Public ip: ${ip}`);
     var body = {"type":"A","hostname":hostname ,"value": ip};
     console.log(`Creating dns record for hostname: ${hostname}. body ${JSON.stringify(body)}`)
   
@@ -77,5 +76,9 @@ function createRecord(hostname){
 
 function getIp(){
   console.log(`Getting public ip`);
-  return publicIp.v4();
+  return publicIp.v4()
+  .then(ip => {
+    console.log(`Public ip: ${ip}`);
+    return ip;
+  });
 }
