@@ -1,0 +1,15 @@
+{
+  "name": "netlify-dns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "netlify-dns.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "public-ip": "^4.0.2"
+  }
+}
