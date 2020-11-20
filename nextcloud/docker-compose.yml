@@ -10,6 +10,10 @@ services:
       # - 80
       # - 443
     restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - nextcloud
   db:
     image: mariadb
     container_name: nextcloud_db
@@ -22,3 +26,9 @@ services:
     volumes:
       - ./db:/var/lib/mysql
     restart: unless-stopped
+    networks:
+      - nextcloud
+
+networks:
+  nextcloud:
+    name: nextcloud
