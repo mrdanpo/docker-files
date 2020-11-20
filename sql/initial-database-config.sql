@@ -4,7 +4,7 @@ GO
 CREATE DATABASE [MyDb]
 GO
 
-USE Database
+USE [MyDb]
 
 CREATE ROLE db_executor
 GO
