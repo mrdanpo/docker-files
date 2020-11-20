@@ -1,8 +1,7 @@
-version: "2.1"
+version: "2.4"
 services:
-  emby:
+  app:
     image: linuxserver/emby
-    container_name: emby
     environment:
       - PUID=1000
       - PGID=1000

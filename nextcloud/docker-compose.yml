@@ -1,59 +1,24 @@
-version: "2.1"
+version: "2.4"
 services:
-  nextcloud:
-    image: linuxserver/nextcloud
-    container_name: nextcloud
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
+  app:
+    image: nextcloud
+    container_name: nextcloud_app
+    links: db
     volumes:
-      - ./nextcloud/appdata:/config
-      - ./nextcloud/data:/data
+      - ./nextcloud:/var/www/html
     expose:
-      - 80
-      - 443
+      # - 80
+      # - 443
     restart: unless-stopped
-    depends_on:
-      - mariadb
-  mariadb:
-    image: linuxserver/mariadb
-    container_name: mariadb
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - MYSQL_ROOT_PASSWORD=changeme
-      - TZ=Europe/London
-    volumes:
-      - ./mariadb/config:/config
-    expose:
-      - 3306
+  db:
+    image: mariadb
+    container_name: nextcloud_db
     restart: unless-stopped
-  letsencrypt:
-    image: linuxserver/letsencrypt
-    container_name: letsencrypt
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      - mariadb
-      - nextcloud
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - URL=your.domain
-      - SUBDOMAINS=nextcloud
-      - VALIDATION=http
-#      - DNSPLUGIN=cloudflare #optional
-#      - PROPAGATION= #optional
-#      - DUCKDNSTOKEN= #optional
-#      - EMAIL= #optional
-      - ONLY_SUBDOMAINS=true
-#      - EXTRA_DOMAINS= #optional
-#      - STAGING=false #optional
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: changeme
     volumes:
-      - ./letsencrypt/config:/config
-    ports:
-      - 443:443
-      - 80:80
+      - ./db:/var/lib/mysql
     restart: unless-stopped

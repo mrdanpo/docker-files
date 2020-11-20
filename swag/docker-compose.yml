@@ -1,8 +1,7 @@
-version: "2.1"
+version: "2.4"
 services:
-  letsencrypt:
-    image: linuxserver/letsencrypt
-    container_name: letsencrypt
+  web:
+    image: linuxserver/swag
     cap_add:
       - NET_ADMIN
     environment:
@@ -26,7 +25,7 @@ services:
       - 80:80
     restart: unless-stopped
     networks:
-      - letsencrypt
+      - swag
 networks:
-    letsencrypt:
-      name: letsencrypt
+    swag:
+      name: swag

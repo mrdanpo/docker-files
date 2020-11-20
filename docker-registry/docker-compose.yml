@@ -1,6 +1,6 @@
 version: '2.4'
 services:
-  registry:
+  app:
     image: registry
     restart: always
     ports:

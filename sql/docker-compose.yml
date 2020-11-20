@@ -1,6 +1,6 @@
-version: "3.7"
+version: "2.4"
 services:
-  sqlserver:
+  db:
     container_name: "sqlserver"
     image: "mcr.microsoft.com/mssql/server:2017-latest"
     ports:

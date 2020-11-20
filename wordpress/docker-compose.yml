@@ -1,0 +1,28 @@
+version: '2.4'
+services:
+  wordpress:
+    image: wordpress
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: changeme
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./app:/var/www/html
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: changeme
+    container_name: mariadb
+    volumes:
+      - ./db:/var/lib/mysql
+#    ports:
+#     - 3306:3306
+    restart: unless-stopped

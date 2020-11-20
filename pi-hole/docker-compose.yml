@@ -1,8 +1,7 @@
-version: "3"
-
+version: "2.4"
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
-  pihole:
+  app:
     container_name: pihole
     image: pihole/pihole:latest
     ports:
@@ -16,8 +15,8 @@ services:
       # WEBPASSWORD: 'set a secure password here or it will be random'
     # Volumes store your data between container upgrades
     volumes:
-       - '/path/to/etc-pihole/:/etc/pihole/'
-       - '/path/to/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+       - './pihole/etc-pihole/:/etc/pihole/'
+       - './pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
     dns:
       - 127.0.0.1
       - 1.1.1.1

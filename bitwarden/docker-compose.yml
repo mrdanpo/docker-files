@@ -1,37 +1,10 @@
-version: "2.1"
+version: "2.4"
 services:
-  nextcloud:
+  app:
     image: bitwardenrs/server:latest
     container_name: bitwarden
     volumes:
       - ./bw-data/:/data/
     expose:
       - 80
-    restart: unless-stopped
-    depends_on:
-      - letsencrypt
-  letsencrypt:
-    image: linuxserver/letsencrypt
-    container_name: letsencrypt
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - URL=your.domain
-      - SUBDOMAINS=bitwarden
-      - VALIDATION=http
-#      - DNSPLUGIN=cloudflare #optional
-#      - PROPAGATION= #optional
-#      - DUCKDNSTOKEN= #optional
-#      - EMAIL= #optional
-      - ONLY_SUBDOMAINS=true
-#      - EXTRA_DOMAINS= #optional
-#      - STAGING=false #optional
-    volumes:
-      - ./letsencrypt/config:/config
-    ports:
-      - 443:443
-      - 80:80
     restart: unless-stopped

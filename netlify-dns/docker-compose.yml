@@ -1,6 +1,6 @@
 version: "2.4"
 services:
-  netlify-dns:
+  app:
     image: node:buster-slim
     container_name: netlify-dns
     env_file:

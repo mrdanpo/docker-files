@@ -1,8 +1,7 @@
-version: "2.1"
+version: "2.4"
 services:
-  nginx:
+  web:
     image: linuxserver/nginx
-    container_name: nginx
     environment:
       - PUID=1000
       - PGID=1000

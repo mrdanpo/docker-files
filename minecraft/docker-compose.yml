@@ -1,6 +1,6 @@
-version: '3'
+version: '2.4'
 services:
-  minecraft:
+  app:
     image: 'openjdk:11'
     container_name: minecraft
     restart: unless-stopped

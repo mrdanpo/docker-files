@@ -1,6 +1,6 @@
-version: '2'
+version: '2.4'
 services:
-  plex:
+  app:
     container_name: plex
     image: plexinc/pms-docker
     restart: unless-stopped
@@ -9,6 +9,6 @@ services:
 #      - PLEX_CLAIM=
     network_mode: host
     volumes:
-      - /mnt/storage/plex/config:/config
-      - /mnt/storage/plex/transcode:/transcode
-      - /mnt/storage/media:/data
+      - ./plex/config:/config
+      - ./plex/transcode:/transcode
+      - ./media:/data

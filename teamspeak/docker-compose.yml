@@ -1,6 +1,6 @@
-version: '3.1'
+version: '2.4'
 services:
-  teamspeak:
+  app:
     image: ertagh/teamspeak3-server:latest-predownloaded
     restart: unless-stopped
     ports:
