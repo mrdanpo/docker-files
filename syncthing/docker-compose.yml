@@ -1,0 +1,11 @@
+version: "2.4"
+services:
+  app:
+    image: syncthing/syncthing:latest
+    container_name: syncthing
+    volumes:
+      - /docker/syncthing:/var/syncthing
+    ports:
+      - 8384:8384
+      - 22000:22000
+    restart: unless-stopped
