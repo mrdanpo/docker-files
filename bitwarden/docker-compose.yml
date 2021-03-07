@@ -3,8 +3,15 @@ services:
   app:
     image: bitwardenrs/server:latest
     container_name: bitwarden
+    environment:
+      - SIGNUPS_ALLOWED=false
     volumes:
       - ./bw-data/:/data/
     expose:
       - 80
     restart: unless-stopped
+    networks:
+      - swag
+networks:
+  swag:
+    external: true
