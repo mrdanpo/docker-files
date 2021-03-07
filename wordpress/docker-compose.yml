@@ -1,37 +1,40 @@
 version: '2.4'
 services:
-  wordpress:
+  app:
     image: wordpress
+    container_name: wordpress
     restart: unless-stopped
-    ports:
-      - 8080:80
+    expose:
+      - 80
     environment:
-      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_HOST: wordpress_db
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: changeme
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - ./app:/var/www/html
+      - ./wordpress:/var/www/html
+    networks:
+      - swag
+      - wordpress
     depends_on:
       - db
-    networks:
-      - wordpress
   db:
     image: mariadb
-    restart: always
+    container_name: wordpress_db
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: changeme
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: changeme
-    container_name: mariadb
     volumes:
-      - ./db:/var/lib/mysql
-#    ports:
-#     - 3306:3306
+      - ./mariadb:/var/lib/mysql
     restart: unless-stopped
     networks:
       - wordpress
+
 networks:
   wordpress:
     name: wordpress
+  swag:
+    external: true

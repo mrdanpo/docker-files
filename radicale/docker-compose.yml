@@ -1,6 +1,7 @@
 version: '2.4'
 services:
   radicale:
+    container_name: radicale
     expose:
       - 5232
     build: .
