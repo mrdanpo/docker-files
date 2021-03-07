@@ -1,0 +1,16 @@
+version: '2.4'
+services:
+  radicale:
+    expose:
+      - 5232
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./etc/radicale:/etc/radicale
+      - ./radicale/collections:/radicale/collections
+    networks:
+      - swag
+
+networks:
+  swag:
+    external: true

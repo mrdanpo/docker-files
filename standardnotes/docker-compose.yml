@@ -1,0 +1,42 @@
+version: '2.4'
+services:
+  db:
+    image: mariadb
+    container_name: standard_notes_db
+    restart: unless-stopped
+    env_file:
+    - db.env
+    volumes:
+      - ./db:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - standard_notes
+  server:
+    container_name: standard_notes_server
+    image: standardnotes/syncing-server
+    expose:
+      - 3000
+    env_file:
+    - server.env
+    restart: unless-stopped
+    networks:
+      - standard_notes
+      - swag
+    depends_on:
+      - db
+  webapp:
+    container_name: standard_notes_web
+    image: standardnotes/web
+    env_file:
+    - web.env
+    expose:
+      - 3001
+    restart: unless-stopped
+    networks:
+      - swag
+
+networks:
+  standard_notes:
+   name: standard_notes
+  swag:
+    external: true
